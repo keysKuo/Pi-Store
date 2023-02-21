@@ -234,6 +234,7 @@ namespace PiStore
             this.btnShowEmployee.Text = "            Employees";
             this.btnShowEmployee.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnShowEmployee.UseVisualStyleBackColor = true;
+            this.btnShowEmployee.Click += new System.EventHandler(this.btnShowEmployee_Click);
             // 
             // panel5
             // 
@@ -268,6 +269,7 @@ namespace PiStore
             this.btnShowClient.Text = "            Clients";
             this.btnShowClient.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnShowClient.UseVisualStyleBackColor = true;
+            this.btnShowClient.Click += new System.EventHandler(this.btnShowClient_Click);
             // 
             // panel6
             // 

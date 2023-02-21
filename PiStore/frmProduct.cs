@@ -60,12 +60,12 @@ namespace PiStore
             {
                 foreach (DataRow row in dtProduct.Rows)
                 {
-                    String pid = row[0].ToString();
-                    String name = row[1].ToString();
-                    String description = row[2].ToString();
-                    int price = Int32.Parse(row[3].ToString());
-                    int quantity = Int32.Parse(row[4].ToString());
-
+                    String pid = row["pid"].ToString();
+                    String name = row["name"].ToString();
+                    String description = row["description"].ToString();
+                    int price = Int32.Parse(row["price"].ToString());
+                    int quantity = Int32.Parse(row["quantity"].ToString());
+                   
                     if (pid != "")
                     {
                         if (Program.isExist("Select pid FROM __PRODUCT Where pid = " + Program.strQuery(pid)))

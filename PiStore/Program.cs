@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
+using DevExpress.XtraDashboardLayout;
 
 namespace PiStore
 {
@@ -77,6 +78,17 @@ namespace PiStore
         public static string strQuery(string s)
         {
             return "'" + s + "'";
+        }
+
+        public static string transDate(string date)
+        {   
+            string[] part = date.Split('/');
+            int month = Int32.Parse(part[0]);
+            int day = Int32.Parse(part[1]);
+
+            string strMonth = month >= 10 ? part[0] : "0" + part[0];
+            string strDay = day > 10 ? part[1] : "0" + part[1];
+            return part[2].Split(' ')[0] + "-" + strMonth + "-" + strDay;
         }
     }
 }

@@ -61,8 +61,20 @@ namespace PiStore
 
         private void btnShowProduct_Click(object sender, EventArgs e)
         {
-            frmProduct frm = new frmProduct();
-            frm.ShowDialog();
+            frmProduct frmProduct = new frmProduct();
+            frmProduct.ShowDialog();
+        }
+
+        private void btnShowEmployee_Click(object sender, EventArgs e)
+        {
+            frmEmployee frmEmployee = new frmEmployee();
+            frmEmployee.ShowDialog();
+        }
+
+        private void btnShowClient_Click(object sender, EventArgs e)
+        {
+            frmClients frmClient = new frmClients();
+            frmClient.ShowDialog();
         }
     }
 }
