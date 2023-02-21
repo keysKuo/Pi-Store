@@ -90,5 +90,24 @@ namespace PiStore
             string strDay = day > 10 ? part[1] : "0" + part[1];
             return part[2].Split(' ')[0] + "-" + strMonth + "-" + strDay;
         }
+
+        public static bool IsValidEmail(string email)
+        {
+            var trimmedEmail = email.Trim();
+
+            if (trimmedEmail.EndsWith("."))
+            {
+                return false; // suggested by @TK-421
+            }
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == trimmedEmail;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

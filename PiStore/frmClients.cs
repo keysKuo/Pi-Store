@@ -83,10 +83,17 @@ namespace PiStore
                 + "name = " + Program.strQuery(name) + ","
                 + "email = " + Program.strQuery(email) + ","
                 + "phone = " + Program.strQuery(phone) + ","
-                + "address = " + Program.strQuery(address) + ","
+                + "address = " + Program.strQuery(address)
                 + " Where client_id = " + Program.strQuery(client_id)
             );
 
+            refreshData();
+        }
+
+        private void deleteClient(String client_id)
+        {
+            Program.Execute("Delete From __Client Where client_id = " + Program.strQuery(client_id));
+            MessageBox.Show("Client - " + client_id + " removed");
             refreshData();
         }
 
@@ -129,6 +136,24 @@ namespace PiStore
                     String phone = row[3].ToString();
                     String address = row[4].ToString();
 
+                    if (client_id.Length > 10)
+                    {
+                        MessageBox.Show("Client_id cannot be longer than 10 characters", client_id);
+                        return;
+                    }
+
+                    if (!Program.IsValidEmail(email))
+                    {
+                        MessageBox.Show("Email invalid", client_id);
+                        return;
+                    }
+
+                    if (phone.Length > 10)
+                    {
+                        MessageBox.Show("Phone only contain 10 numbers", client_id);
+                        return;
+                    }
+
                     if (client_id != "")
                     {
                         if (Program.isExist("Select client_id FROM __CLIENT Where client_id = " + Program.strQuery(client_id)))
@@ -145,6 +170,35 @@ namespace PiStore
                 }
 
                 MessageBox.Show("Save successfully");
+            }
+        }
+
+        private void btnRemoveClient_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (dt.Rows.Count > 0)
+            {
+                Int32 row = gridView1.GetSelectedRows()[0];
+                string client_id = dt.Rows[row][0].ToString();
+
+                if (XtraMessageBox.Show("Do you want to remove client " + client_id + " ?", "Confirmation", MessageBoxButtons.YesNo) != DialogResult.No)
+                {
+                    deleteClient(client_id);
+                }
+            }
+        }
+
+        private void btnRefreshClient_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            refreshData();
+            MessageBox.Show("Refresh Successfully");
+        }
+
+        private void btnRemoveAllClient_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (XtraMessageBox.Show("Are you sure that you want to remove all clients ?", "Confirmation", MessageBoxButtons.YesNo) != DialogResult.No)
+            {
+                Program.Execute("Delete From __Client");
+                refreshData();
             }
         }
     }

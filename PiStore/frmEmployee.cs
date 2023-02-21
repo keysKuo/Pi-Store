@@ -110,7 +110,25 @@ namespace PiStore
                     String address = row[4].ToString();
                     int salary = Int32.Parse(row[5].ToString());
                     String hireDate = Program.transDate(row[6].ToString());
-                   
+
+                    if (emp_id.Length > 10)
+                    {
+                        MessageBox.Show("Emp_id cannot be longer than 10 characters", emp_id);
+                        return;
+                    }
+
+                    if (!Program.IsValidEmail(email))
+                    {
+                        MessageBox.Show("Email invalid", emp_id);
+                        return;
+                    }
+
+                    if (phone.Length > 10)
+                    {
+                        MessageBox.Show("Phone only contain 10 numbers", emp_id);
+                        return;
+                    }
+
                     if (emp_id != "")
                     {
                         if (Program.isExist("Select emp_id FROM __Employee Where emp_id = " + Program.strQuery(emp_id)))
@@ -134,6 +152,55 @@ namespace PiStore
         {
             refreshData();
             MessageBox.Show("Refresh successfully");
+        }
+        private void autoGenerateEmployee()
+        {
+            for (int i = 1; i <= 20; i++)
+            {
+                String client_id = "EMP" + normalizeNumber(i);
+                String name = "Employee " + i;
+                String email = "employee" + i + "@gmail.com";
+                String phone = "0929852953";
+                String address = "...";
+                addEmployee(client_id, name, email, phone, address, 10000000, "2023-02-05");
+            }
+
+            refreshData();
+        }
+
+        private string normalizeNumber(int num)
+        {
+            if (num >= 1000)
+            {
+                return num.ToString();
+            }
+            else if (num >= 100)
+            {
+                return "0" + num.ToString();
+            }
+            else if (num >= 10)
+            {
+                return "00" + num.ToString();
+            }
+            else
+            {
+                return "000" + num.ToString();
+            }
+        }
+
+        private void btnAutoGenerateEmployee_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            autoGenerateEmployee();
+        }
+
+        private void btnRemoveAllEmployee_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (XtraMessageBox.Show("Are you sure that you want to remove all employees ?", "Confirmation", MessageBoxButtons.YesNo) != DialogResult.No)
+            {
+                Program.Execute("Delete From __Employee");
+                
+                refreshData();
+            }
         }
     }
 }

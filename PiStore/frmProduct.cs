@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace PiStore
 {
@@ -65,7 +66,13 @@ namespace PiStore
                     String description = row["description"].ToString();
                     int price = Int32.Parse(row["price"].ToString());
                     int quantity = Int32.Parse(row["quantity"].ToString());
-                   
+
+                    if (pid.Length > 10)
+                    {
+                        MessageBox.Show("Pid cannot be longer than 10 characters", pid);
+                        return;
+                    }
+
                     if (pid != "")
                     {
                         if (Program.isExist("Select pid FROM __PRODUCT Where pid = " + Program.strQuery(pid)))
@@ -120,6 +127,56 @@ namespace PiStore
         {
             refreshData();
             MessageBox.Show("Refresh successfully");
+        }
+
+        private void autoGenerateProduct()
+        {
+            for (int i = 1; i <= 20; i++)
+            {
+                String pid = "PR" + normalizeNumber(i);
+                String name = "Product " + i;
+                String description = "Some information about Product " + i;
+                
+                addProduct(pid, name, description, 10000, 5);
+            }
+
+            refreshData();
+        }
+
+        private string normalizeNumber(int num)
+        {
+            if (num >= 1000)
+            {
+                return num.ToString();
+            }
+            else if (num >= 100)
+            {
+                return "0" + num.ToString();
+            }
+            else if (num >= 10)
+            {
+                return "00" + num.ToString();
+            }
+            else
+            {
+                return "000" + num.ToString();
+            }
+        }
+
+        private void btnAutoGenerateProduct_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            autoGenerateProduct();
+        }
+
+        private void btnRemoveAllProduct_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (XtraMessageBox.Show("Are you sure that you want to remove all products ?", "Confirmation", MessageBoxButtons.YesNo) != DialogResult.No)
+            {
+                Program.Execute("Delete From __Product");
+                
+                refreshData();
+            }
+            
         }
     }
 }
