@@ -76,5 +76,15 @@ namespace PiStore
             frmClients frmClient = new frmClients();
             frmClient.ShowDialog();
         }
+
+        private void btnShowOrder_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnShowBill_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -165,7 +165,18 @@ namespace PiStore
 
         private void btnAutoGenerateProduct_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            autoGenerateProduct();
+            if (dtProduct.Rows.Count == 0)
+            {
+                if (XtraMessageBox.Show("Do you want to auto generate records" + " ?", "Confirmation", MessageBoxButtons.YesNo) != DialogResult.No)
+                {
+                    autoGenerateProduct();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Records available");
+            }
+            
         }
 
         private void btnRemoveAllProduct_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)

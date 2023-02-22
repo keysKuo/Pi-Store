@@ -190,7 +190,18 @@ namespace PiStore
 
         private void btnAutoGenerateEmployee_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            autoGenerateEmployee();
+            if (dt.Rows.Count == 0)
+            {
+                if (XtraMessageBox.Show("Do you want to auto generate records" + " ?", "Confirmation", MessageBoxButtons.YesNo) != DialogResult.No)
+                {
+                    autoGenerateEmployee();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Records available");
+            }
+            
         }
 
         private void btnRemoveAllEmployee_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)

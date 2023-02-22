@@ -339,6 +339,7 @@ namespace PiStore
             this.btnShowOrder.Text = "            Orders";
             this.btnShowOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnShowOrder.UseVisualStyleBackColor = true;
+            this.btnShowOrder.Click += new System.EventHandler(this.btnShowOrder_Click);
             // 
             // panel8
             // 
@@ -373,6 +374,7 @@ namespace PiStore
             this.btnShowBill.Text = "            Bills";
             this.btnShowBill.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnShowBill.UseVisualStyleBackColor = true;
+            this.btnShowBill.Click += new System.EventHandler(this.btnShowBill_Click);
             // 
             // panel9
             // 
