@@ -22,7 +22,7 @@ namespace PiStore
             strConn = ConfigurationManager.ConnectionStrings["MyConn"].ConnectionString;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmLogin());
+            Application.Run(new frmOrder());
         }
 
         public static DataTable Load_DataTable(string query)
