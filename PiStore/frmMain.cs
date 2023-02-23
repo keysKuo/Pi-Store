@@ -79,7 +79,8 @@ namespace PiStore
 
         private void btnShowOrder_Click(object sender, EventArgs e)
         {
-
+            frmOrder frmOrder = new frmOrder();
+            frmOrder.ShowDialog();
         }
 
         private void btnShowBill_Click(object sender, EventArgs e)

@@ -13,6 +13,7 @@ namespace PiStore
     internal static class Program
     {
         public static string strConn = "";
+        public static string session_empId = "";
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -22,7 +23,7 @@ namespace PiStore
             strConn = ConfigurationManager.ConnectionStrings["MyConn"].ConnectionString;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmOrder());
+            Application.Run(new frmLogin());
         }
 
         public static DataTable Load_DataTable(string query)
@@ -108,6 +109,15 @@ namespace PiStore
             {
                 return false;
             }
+        }
+
+        private static Random random = new Random();
+
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

@@ -64,8 +64,16 @@ create table __Bill (
     Constraint FK_Bill_Employee Foreign Key (emp_id) References __Employee (emp_id)
 )
 
+create table __Account (
+	acc_id varchar(10) Primary Key, 
+	password varchar(255),
+	emp_id varchar(10),
+	Constraint FK_Account_Employee Foreign Key (emp_id) References __Employee (emp_id)
+)
 
-
+Insert into __Account values ('admin', '9952811', 'EMP001')
+delete from __Order
+select * From __OrderItem
 
 Insert into __Product values ('SP0001', 'First test', 'Some information', 0, 5)
 Insert into __Product values ('SP0002', 'Second test', 'Some information', 0, 2)

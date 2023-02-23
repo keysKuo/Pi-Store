@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Windows.Forms;
 
 namespace PiStore
@@ -31,16 +32,25 @@ namespace PiStore
             }
             else
             {
-                if (username == "admin" && password == "9952811")
+                DataTable dt = Program.Load_DataTable("Select * From __Account Where acc_id = '" + username + "'");
+                if (dt.Rows.Count > 0)
                 {
-                    frmMain main = new frmMain();
-                    this.Hide();
-                    main.ShowDialog();
-                }
-                else
+                    DataRow row = dt.Rows[0]; 
+                    if (row["password"].ToString() == password)
+                    {
+                        Program.session_empId = row["emp_id"].ToString();
+                        frmMain main = new frmMain();
+                        this.Hide();
+                        main.ShowDialog();
+                    }
+                    else
+                    {
+                        txtPassword.Text = "";
+                        MessageBox.Show("Wrong username or password", "Message");
+                    }
+                }else
                 {
-                    txtPassword.Text = "";
-                    MessageBox.Show("Wrong username or password", "Message");
+                    MessageBox.Show("Account not exist");
                 }
             }
         }
