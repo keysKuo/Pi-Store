@@ -72,11 +72,6 @@ create table __Account (
 )
 
 Insert into __Account values ('admin', '9952811', 'EMP001')
-delete from __Order
-select * From __OrderItem
-
-Insert into __Product values ('SP0001', 'First test', 'Some information', 0, 5)
-Insert into __Product values ('SP0002', 'Second test', 'Some information', 0, 2)
 
 Insert into __Employee values ('EMP001', 'Sheldon Kuo', 'sheldon1247@gmail.com', '0767916592', '94/20 TL 16', 16000000, '2022-12-02')
 Insert into __Employee values ('EMP002', 'Thong Nguyen', 'ntttt33@gmail.com', '0953838532', '...', 24000000, '2022-04-22')

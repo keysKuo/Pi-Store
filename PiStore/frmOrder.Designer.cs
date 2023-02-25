@@ -51,6 +51,9 @@
             this.barDockControl8 = new DevExpress.XtraBars.BarDockControl();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.tabDetail = new DevExpress.XtraTab.XtraTabPage();
+            this.btnExportBill = new DevExpress.XtraEditors.SimpleButton();
+            this.lblDetailTotal = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.gridDetail = new DevExpress.XtraGrid.GridControl();
             this.gridViewDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -75,9 +78,6 @@
             this.gridViewProduct = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tabOrder = new DevExpress.XtraTab.XtraTabControl();
-            this.lblDetailTotal = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.btnExportBill = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager3)).BeginInit();
@@ -309,6 +309,37 @@
             this.tabDetail.Size = new System.Drawing.Size(1173, 578);
             this.tabDetail.Text = "Detail";
             // 
+            // btnExportBill
+            // 
+            this.btnExportBill.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.btnExportBill.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnExportBill.ImageOptions.Image")));
+            this.btnExportBill.Location = new System.Drawing.Point(767, 524);
+            this.btnExportBill.Name = "btnExportBill";
+            this.btnExportBill.Size = new System.Drawing.Size(79, 36);
+            this.btnExportBill.TabIndex = 10;
+            this.btnExportBill.Text = "Export Bill";
+            this.btnExportBill.Click += new System.EventHandler(this.btnExportBill_Click);
+            // 
+            // lblDetailTotal
+            // 
+            this.lblDetailTotal.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDetailTotal.Appearance.ForeColor = System.Drawing.Color.MediumAquamarine;
+            this.lblDetailTotal.Appearance.Options.UseFont = true;
+            this.lblDetailTotal.Appearance.Options.UseForeColor = true;
+            this.lblDetailTotal.Location = new System.Drawing.Point(1089, 524);
+            this.lblDetailTotal.Name = "lblDetailTotal";
+            this.lblDetailTotal.Size = new System.Drawing.Size(14, 13);
+            this.lblDetailTotal.TabIndex = 9;
+            this.lblDetailTotal.Text = "0$";
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Location = new System.Drawing.Point(1052, 524);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(31, 13);
+            this.labelControl2.TabIndex = 8;
+            this.labelControl2.Text = "Total: ";
+            // 
             // groupControl2
             // 
             this.groupControl2.Controls.Add(this.gridDetail);
@@ -537,37 +568,6 @@
             this.tabOrder.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.Order,
             this.tabDetail});
-            // 
-            // lblDetailTotal
-            // 
-            this.lblDetailTotal.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDetailTotal.Appearance.ForeColor = System.Drawing.Color.MediumAquamarine;
-            this.lblDetailTotal.Appearance.Options.UseFont = true;
-            this.lblDetailTotal.Appearance.Options.UseForeColor = true;
-            this.lblDetailTotal.Location = new System.Drawing.Point(1089, 524);
-            this.lblDetailTotal.Name = "lblDetailTotal";
-            this.lblDetailTotal.Size = new System.Drawing.Size(14, 13);
-            this.lblDetailTotal.TabIndex = 9;
-            this.lblDetailTotal.Text = "0$";
-            // 
-            // labelControl2
-            // 
-            this.labelControl2.Location = new System.Drawing.Point(1052, 524);
-            this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(31, 13);
-            this.labelControl2.TabIndex = 8;
-            this.labelControl2.Text = "Total: ";
-            // 
-            // btnExportBill
-            // 
-            this.btnExportBill.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
-            this.btnExportBill.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
-            this.btnExportBill.Location = new System.Drawing.Point(767, 524);
-            this.btnExportBill.Name = "btnExportBill";
-            this.btnExportBill.Size = new System.Drawing.Size(79, 36);
-            this.btnExportBill.TabIndex = 10;
-            this.btnExportBill.Text = "Export Bill";
-            this.btnExportBill.Click += new System.EventHandler(this.btnExportBill_Click);
             // 
             // frmOrder
             // 

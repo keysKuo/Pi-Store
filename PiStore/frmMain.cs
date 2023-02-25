@@ -85,7 +85,8 @@ namespace PiStore
 
         private void btnShowBill_Click(object sender, EventArgs e)
         {
-
+            frmBill frmBill = new frmBill();
+            frmBill.ShowDialog();
         }
     }
 }

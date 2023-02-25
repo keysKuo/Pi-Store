@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -70,14 +71,12 @@ namespace PiStore
             chosenTime = now.ToString("yyyy-MM-dd");
             dtProduct = Program.Load_DataTable("Select * From __Product");
             dtClient = Program.Load_DataTable("Select * From __Client");
-            dtOrderList = Program.Load_DataTable("Select O.order_id, C.client_id, C.name as client_name, C.phone, O.total "
-                + "From __Order O, __Client C Where O.client_id = C.client_id And O.orderDate = '" + chosenTime + "'"
-                );
+            
 
             gridProduct.DataSource = dtProduct;
             gridClient.DataSource = dtClient;
             gridPlaceOrder.DataSource = dtPlaceOrder;
-            gridOrderList.DataSource = dtOrderList;
+            reQueryOrderListByDate();
             
         }
 
@@ -86,6 +85,7 @@ namespace PiStore
             chosenTime = dateOrderList.DateTime.ToString("yyyy-MM-dd");
             dtOrderList = Program.Load_DataTable("Select O.order_id, C.client_id, C.name as client_name, C.phone, O.total "
                 + "From __Order O, __Client C Where O.client_id = C.client_id And O.orderDate = '" + chosenTime + "'"
+                + " And O.order_id not in (Select order_id From __BILL)"
                 );
             gridOrderList.DataSource = dtOrderList;
         }
@@ -194,7 +194,7 @@ namespace PiStore
 
                 dtPlaceOrder.Rows.Clear();
                 refreshData();
-
+                lblTotalValue.Text = "0$";
                 XtraMessageBox.Show("Place order successfully");
                 return;
             }
@@ -206,7 +206,7 @@ namespace PiStore
             {
                 Int32 order_row = gridViewOrderList.GetSelectedRows()[0];
                 String order_id = dtOrderList.Rows[order_row]["order_id"].ToString();
-                dtDetail = Program.Load_DataTable("Select P.pid, P.name, P.price, P.quantity From __OrderItem OI, __Product P Where OI.pid = P.pid AND OI.order_id = " + Program.strQuery(order_id));
+                dtDetail = Program.Load_DataTable("Select P.pid, P.name, P.price, OI.quantity From __OrderItem OI, __Product P Where OI.pid = P.pid AND OI.order_id = " + Program.strQuery(order_id));
                 gridDetail.DataSource = dtDetail;
                 lblDetailTotal.Text = dtOrderList.Rows[order_row]["total"].ToString() + "$";
             }else
@@ -221,8 +221,59 @@ namespace PiStore
         {
             if (XtraMessageBox.Show("Do you want to export bill ?", "Confirmation", MessageBoxButtons.YesNo) != DialogResult.No)
             {
+                ArrayList updateList = new ArrayList();
                 
+                foreach (DataRow row in dtDetail.Rows)
+                {
+                    String pid = row["pid"].ToString();
+                    String quantity = row["quantity"].ToString();  
+
+                    DataTable dtCheckCap = Program.Load_DataTable("Select pid from __PRODUCT Where pid = + " + Program.strQuery(pid) + " And quantity >= " + quantity);
+                    if (dtCheckCap.Rows.Count == 0)
+                    {
+                        XtraMessageBox.Show("Product " + pid + " is not enough");
+                        return;
+                    }
+
+                    updateList.Add("Update __Product Set "
+                        + "quantity = quantity - " + quantity
+                        + " Where pid = " + Program.strQuery(pid));        
+                }
+
+                
+                foreach(String query in updateList)
+                {
+                    Program.Execute(query);
+                }
+                
+
+                String bill_id = "BILL" + Program.RandomString(6);
+                Int32 order_row = gridViewOrderList.GetSelectedRows()[0];
+                String order_id = dtOrderList.Rows[order_row]["order_id"].ToString();
+                String client_id = dtOrderList.Rows[order_row]["client_id"].ToString();
+                String emp_id = Program.session_empId;
+                String total = dtOrderList.Rows[order_row]["total"].ToString();
+
+                Program.Execute("Insert into __BILL values ("
+                    + Program.strQuery(bill_id) + ","
+                    + Program.strQuery(order_id) + ","
+                    + Program.strQuery(client_id) + ","
+                    + Program.strQuery(emp_id) + ","
+                    + "GETDATE()" + ","
+                    + total + ")"
+                    );
+                Program.reportId = bill_id;
+
+                printBillReport();
+                refreshData();
+                XtraMessageBox.Show("Export bill successfully");
             }
+        }
+
+        private void printBillReport()
+        {
+            ReportForm report = new ReportForm();
+            report.Show();
         }
 
         private void dateOrderList_EditValueChanged(object sender, EventArgs e)

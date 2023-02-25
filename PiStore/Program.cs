@@ -14,6 +14,7 @@ namespace PiStore
     {
         public static string strConn = "";
         public static string session_empId = "";
+        public static string reportId = "";
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
